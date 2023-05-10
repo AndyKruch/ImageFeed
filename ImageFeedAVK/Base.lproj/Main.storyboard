@@ -1,24 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--ImageList-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" userLabel="ImageList" customClass="ImagesListViewController" customModule="ImageFeedAVK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="MLa-YF-GJF">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <color key="backgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="sectionIndexBackgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationWidth="10" reuseIdentifier="ImagesListCell" rowHeight="212" id="3dd-nn-nMj">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="212"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3dd-nn-nMj" id="ZmB-Rh-sRh">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="212"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="noK-Me-Amm">
+                                                    <rect key="frame" x="16" y="4" width="361" height="204"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hcN-x9-zWx" userLabel="Like Active">
+                                                    <rect key="frame" x="333" y="4" width="44" height="44"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" image="LikeActive"/>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="27 апреля 2023" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RcM-E8-hla" userLabel="Date Label">
+                                                    <rect key="frame" x="24" y="184" width="99" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="RcM-E8-hla" firstAttribute="leading" secondItem="noK-Me-Amm" secondAttribute="leading" constant="8" id="5yV-bD-1Fp"/>
+                                                <constraint firstAttribute="trailing" secondItem="noK-Me-Amm" secondAttribute="trailing" constant="16" id="D7f-s8-1MA"/>
+                                                <constraint firstItem="noK-Me-Amm" firstAttribute="top" secondItem="ZmB-Rh-sRh" secondAttribute="top" constant="4" id="J0N-ic-8Pb"/>
+                                                <constraint firstItem="hcN-x9-zWx" firstAttribute="top" secondItem="noK-Me-Amm" secondAttribute="top" id="J5c-2N-8wm"/>
+                                                <constraint firstItem="noK-Me-Amm" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="RcM-E8-hla" secondAttribute="trailing" constant="8" id="QqO-zj-DQB"/>
+                                                <constraint firstAttribute="bottom" secondItem="noK-Me-Amm" secondAttribute="bottom" constant="4" id="eiM-n8-VdE"/>
+                                                <constraint firstItem="noK-Me-Amm" firstAttribute="trailing" secondItem="hcN-x9-zWx" secondAttribute="trailing" id="h5L-qm-Qao"/>
+                                                <constraint firstItem="noK-Me-Amm" firstAttribute="leading" secondItem="ZmB-Rh-sRh" secondAttribute="leading" constant="16" id="iG2-vg-Fu5"/>
+                                                <constraint firstItem="noK-Me-Amm" firstAttribute="bottom" secondItem="RcM-E8-hla" secondAttribute="bottom" constant="8" id="jU0-Se-0i8"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="dj3-eP-oXY"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="0x3-nT-aRR"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="top" secondItem="MLa-YF-GJF" secondAttribute="top" id="DLB-cB-eP3"/>
+                            <constraint firstItem="MLa-YF-GJF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="IEL-ci-xcJ"/>
+                            <constraint firstAttribute="trailing" secondItem="MLa-YF-GJF" secondAttribute="trailing" id="PAe-Za-PGz"/>
+                            <constraint firstItem="MLa-YF-GJF" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="Qs9-UY-cIK"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="MLa-YF-GJF" id="h1V-U5-1WN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="61.832061068702288" y="-2.1126760563380285"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="0" width="200" height="132"/>
+        <image name="LikeActive" width="44" height="44"/>
+    </resources>
 </document>
