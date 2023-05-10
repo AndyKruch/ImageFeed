@@ -8,8 +8,8 @@
 import UIKit
 
 class ImagesListViewController: UIViewController {
+    
     @IBOutlet private var tableView: UITableView!
-
     private let photosName: [String] = Array(0..<20).map{ "\($0)" }
 
     override func viewDidLoad() {
@@ -24,6 +24,7 @@ class ImagesListViewController: UIViewController {
         return formatter
     }()
 }
+
 
 extension ImagesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -43,6 +44,7 @@ extension ImagesListViewController: UITableViewDataSource {
     }
 }
 
+
 extension ImagesListViewController {
     func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
         guard let image = UIImage(named: photosName[indexPath.row]) else {
@@ -57,6 +59,7 @@ extension ImagesListViewController {
         cell.likeButton.setImage(likeImage, for: .normal)
     }
 }
+
 
 extension ImagesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
