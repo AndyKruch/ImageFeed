@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="h8H-Lb-lv1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pbQ-vO-YuT">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -8,29 +8,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Tab Bar Controller-->
-        <scene sceneID="Ero-xZ-pbr">
-            <objects>
-                <tabBarController id="pbQ-vO-YuT" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Hgx-8R-1lO">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <tabBarAppearance key="standardAppearance">
-                            <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
-                        </tabBarAppearance>
-                    </tabBar>
-                    <connections>
-                        <segue destination="IYq-wl-jjj" kind="relationship" relationship="viewControllers" id="0JD-qf-e13"/>
-                        <segue destination="8vV-33-1lV" kind="relationship" relationship="viewControllers" id="C9V-WJ-Ypa"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MKg-qK-k7G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1794" y="-59"/>
-        </scene>
         <!--ImageList-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -39,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="MLa-YF-GJF">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="MLa-YF-GJF">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -127,11 +104,42 @@
                     <navigationItem key="navigationItem" id="aR6-Vq-FBc"/>
                     <connections>
                         <outlet property="tableView" destination="MLa-YF-GJF" id="iEV-PS-3o2"/>
+                        <segue destination="h8H-Lb-lv1" kind="show" identifier="ShowSingleImage" id="EwI-qw-Una"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="118.84057971014494" y="-485.49107142857139"/>
+        </scene>
+        <!--Single Image View Controller-->
+        <scene sceneID="KNY-bj-kGg">
+            <objects>
+                <viewController id="h8H-Lb-lv1" customClass="SingleImageViewController" customModule="ImageFeedAVK" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BfD-Hv-T2k">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="pwM-bo-aOp">
+                                <rect key="frame" x="0.0" y="92" width="414" height="721"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="mkW-W0-FB8"/>
+                        <color key="backgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="pwM-bo-aOp" firstAttribute="leading" secondItem="mkW-W0-FB8" secondAttribute="leading" id="FM5-bW-QYe"/>
+                            <constraint firstItem="mkW-W0-FB8" firstAttribute="bottom" secondItem="pwM-bo-aOp" secondAttribute="bottom" id="J6E-6l-mET"/>
+                            <constraint firstItem="mkW-W0-FB8" firstAttribute="trailing" secondItem="pwM-bo-aOp" secondAttribute="trailing" id="dF9-F3-S6n"/>
+                            <constraint firstItem="pwM-bo-aOp" firstAttribute="top" secondItem="mkW-W0-FB8" secondAttribute="top" id="ibm-rb-fy7"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="IyG-xZ-FEr"/>
+                    <connections>
+                        <outlet property="imageView" destination="pwM-bo-aOp" id="dah-au-QKV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s2N-mP-OmK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1053.6231884057972" y="-485.49107142857139"/>
         </scene>
         <!--Profile-->
         <scene sceneID="VZr-X0-c2u">
@@ -210,6 +218,29 @@
             </objects>
             <point key="canvasLocation" x="-791" y="294"/>
         </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="Ero-xZ-pbr">
+            <objects>
+                <tabBarController id="pbQ-vO-YuT" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Hgx-8R-1lO">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <tabBarAppearance key="standardAppearance">
+                            <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        </tabBarAppearance>
+                    </tabBar>
+                    <connections>
+                        <segue destination="IYq-wl-jjj" kind="relationship" relationship="viewControllers" id="0JD-qf-e13"/>
+                        <segue destination="8vV-33-1lV" kind="relationship" relationship="viewControllers" id="C9V-WJ-Ypa"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MKg-qK-k7G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1794" y="-59"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="JUX-Ym-4kW">
             <objects>
@@ -223,9 +254,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <navigationBarAppearance key="standardAppearance">
-                            <color key="backgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
-                        </navigationBarAppearance>
+                        <navigationBarAppearance key="standardAppearance"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -235,36 +264,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y2r-CJ-Sw5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-791.304347826087" y="-485.49107142857139"/>
-        </scene>
-        <!--Single Image-->
-        <scene sceneID="KNY-bj-kGg">
-            <objects>
-                <viewController id="h8H-Lb-lv1" userLabel="Single Image" customClass="SingleImageViewController" customModule="ImageFeedAVK" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="BfD-Hv-T2k">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="pwM-bo-aOp">
-                                <rect key="frame" x="0.0" y="-8" width="414" height="904"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </imageView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="mkW-W0-FB8"/>
-                        <color key="backgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="pwM-bo-aOp" firstAttribute="leadingMargin" secondItem="BfD-Hv-T2k" secondAttribute="leadingMargin" constant="-12" id="FM5-bW-QYe"/>
-                            <constraint firstAttribute="bottom" secondItem="pwM-bo-aOp" secondAttribute="bottom" id="J6E-6l-mET"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="pwM-bo-aOp" secondAttribute="trailingMargin" constant="-12" id="dF9-F3-S6n"/>
-                            <constraint firstItem="pwM-bo-aOp" firstAttribute="topMargin" secondItem="BfD-Hv-T2k" secondAttribute="topMargin" id="ibm-rb-fy7"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="imageView" destination="pwM-bo-aOp" id="Tcs-7M-hIy"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="s2N-mP-OmK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-771.01449275362324" y="-1158.4821428571429"/>
         </scene>
     </scenes>
     <resources>
