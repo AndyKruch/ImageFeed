@@ -10,8 +10,8 @@ import UIKit
 final class SingleImageViewController: UIViewController {
     var image: UIImage! {
         didSet {
-            guard isViewLoaded else { return } // 1
-            imageView.image = image // 2
+            guard isViewLoaded else { return }
+            imageView.image = image
         }
     }
     
@@ -40,7 +40,6 @@ final class SingleImageViewController: UIViewController {
     }
     
     
-    
     private func rescaleAndCenterImageInScrollView(image: UIImage) {
         let minZoomScale = scrollView.minimumZoomScale
         let maxZoomScale = scrollView.maximumZoomScale
@@ -58,7 +57,6 @@ final class SingleImageViewController: UIViewController {
         scrollView.setContentOffset(CGPoint(x: x, y: y), animated: false)
     }
 }
-
 
 
 extension SingleImageViewController: UIScrollViewDelegate {
