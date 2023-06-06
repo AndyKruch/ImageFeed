@@ -280,9 +280,39 @@
                     <view key="view" contentMode="scaleToFill" id="ebO-r5-ga2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ltL-ob-aWy">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ydp-5w-xmZ">
+                                <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="48" id="B4s-QX-LYc"/>
+                                    <constraint firstAttribute="width" secondItem="ydp-5w-xmZ" secondAttribute="height" multiplier="1:1" id="ila-21-zIi"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="nav_back_button_black"/>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="jYQ-di-LPG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="ltL-ob-aWy" secondAttribute="bottom" id="BYW-wa-eaI"/>
+                            <constraint firstAttribute="trailing" secondItem="ltL-ob-aWy" secondAttribute="trailing" id="Dq3-Mz-6PK"/>
+                            <constraint firstItem="ltL-ob-aWy" firstAttribute="top" secondItem="ebO-r5-ga2" secondAttribute="top" id="cbW-LA-0Vz"/>
+                            <constraint firstItem="ydp-5w-xmZ" firstAttribute="top" secondItem="jYQ-di-LPG" secondAttribute="top" id="jTA-JB-7Ze"/>
+                            <constraint firstItem="ltL-ob-aWy" firstAttribute="leading" secondItem="ebO-r5-ga2" secondAttribute="leading" id="rBB-bV-7EK"/>
+                            <constraint firstItem="ydp-5w-xmZ" firstAttribute="leading" secondItem="jYQ-di-LPG" secondAttribute="leading" id="uSQ-Bn-Oyg"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="webView" destination="ltL-ob-aWy" id="nEH-I1-CMZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7vQ-CG-FOW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -295,6 +325,7 @@
         <image name="auth_image_logo" width="60" height="60"/>
         <image name="imageGradient" width="343" height="30"/>
         <image name="nav_back_button" width="9" height="16"/>
+        <image name="nav_back_button_black" width="9" height="16"/>
         <image name="share_button" width="50" height="50"/>
         <image name="tab_editorial_active" width="20" height="22"/>
         <image name="tab_profile_active" width="24" height="24"/>
