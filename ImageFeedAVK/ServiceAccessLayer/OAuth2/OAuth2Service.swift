@@ -16,8 +16,9 @@ final class OAuth2Service {
             return OAuth2TokenStorage().token
         }
         set {
-            OAuth2TokenStorage().token = newValue
-        } }
+            OAuth2TokenStorage().store(token: newValue!)
+        }
+    }
     func fetchOAuthToken(
         _ code: String,
         completion: @escaping (Result<String, Error>) -> Void ){
@@ -127,9 +128,4 @@ extension URLSession {
         task.resume()
         return task
     }
-    
 }
-
-
-
-
