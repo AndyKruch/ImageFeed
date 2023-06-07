@@ -28,19 +28,7 @@ final class WebViewViewController: UIViewController {
 
         webView.navigationDelegate = self
 
-        var urlComponents = URLComponents(string: UnsplashAuthorizeURLString)!
-        urlComponents.queryItems = [
-            URLQueryItem(name: "client_id", value: AccessKey),
-            URLQueryItem(name: "redirect_uri", value: RedirectURI),
-            URLQueryItem(name: "response_type", value: "code"),
-            URLQueryItem(name: "scope", value: AccessScope)
-        ]
-        let url = urlComponents.url!
-
-        let request = URLRequest(url: url)
-        webView.load(request)
-
-        updateProgress()
+        loadWebView()
     }
 
     @IBAction private func didTapBackButton(_ sender: Any?) {
@@ -79,6 +67,24 @@ final class WebViewViewController: UIViewController {
 }
 
 extension WebViewViewController: WKNavigationDelegate {
+    func loadWebView() {
+        var urlComponents = URLComponents(string: UnsplashAuthorizeURLString)!
+        urlComponents.queryItems = [
+            URLQueryItem(name: "client_id", value: AccessKey),
+            URLQueryItem(name: "redirect_uri", value: RedirectURI),
+            URLQueryItem(name: "response_type", value: "code"),
+            URLQueryItem(name: "scope", value: AccessScope)
+        ]
+        let url = urlComponents.url!
+
+        let request = URLRequest(url: url)
+        webView.load(request)
+
+        updateProgress()
+    }
+    
+    
+    
     func webView(
         _ webView: WKWebView,
         decidePolicyFor navigationAction: WKNavigationAction,
@@ -106,3 +112,5 @@ extension WebViewViewController: WKNavigationDelegate {
         }
     }
 }
+
+
