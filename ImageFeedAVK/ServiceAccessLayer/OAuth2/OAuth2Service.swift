@@ -11,6 +11,9 @@ import Foundation
 final class OAuth2Service {
     static let shared = OAuth2Service()
     private let urlSession = URLSession.shared
+    private var task: URLSessionTask?
+    private var lastCode: String?
+    
     private (set) var authToken: String? {
         get {
             return OAuth2TokenStorage().token
@@ -19,22 +22,41 @@ final class OAuth2Service {
             OAuth2TokenStorage().store(token: newValue!)
         }
     }
-    func fetchOAuthToken(
-        _ code: String,
-        completion: @escaping (Result<String, Error>) -> Void ){
-            let request = authTokenRequest(code: code)
-            let task = object(for: request) { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let body):
-                    let authToken = body.accessToken
-                    self.authToken = authToken
-                    completion(.success(authToken))
-                case .failure(let error):
-                    completion(.failure(error))
-                } }
-            task.resume()
+    
+    func fetchOAuthToken(_ code: String, completion: @escaping (Result<String, Error>) -> Void) {
+        assert(Thread.isMainThread)
+        if task != nil {
+            if lastCode != code {
+                task?.cancel()
+            } else {
+                return
+            }
+        } else {
+            if lastCode == code {
+                return
+            }
         }
+        lastCode = code
+        let request = makeRequest(code: code)
+        let task = urlSession.dataTask(with: request) { data, response, error in
+            DispatchQueue.main.async {
+                completion(.success(""))
+                self.task = nil
+                if error != nil {
+                    self.lastCode = nil
+                }
+            }
+        }
+        self.task = task
+        task.resume()
+    }
+    
+    private func makeRequest(code: String) -> URLRequest {
+        guard let url = URL(string: "...\(code)") else { fatalError("Failed to create URL") }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        return request
+    }
 }
 
 
@@ -51,6 +73,7 @@ extension OAuth2Service {
             completion(response)
         }
     }
+    
     private func authTokenRequest(code: String) -> URLRequest {
         URLRequest.makeHTTPRequest(
             path: "/oauth/token"
@@ -62,6 +85,7 @@ extension OAuth2Service {
             httpMethod: "POST",
             baseURL: URL(string: "https://unsplash.com")!
         ) }
+    
     private struct OAuthTokenResponseBody: Decodable {
         let accessToken: String
         let tokenType: String
@@ -77,8 +101,6 @@ extension OAuth2Service {
 }
 
 // MARK: - HTTP Request
-
-
 extension URLRequest {
     static func makeHTTPRequest(
         path: String,
@@ -99,6 +121,7 @@ enum NetworkError: Error {
     case urlRequestError(Error)
     case urlSessionError
 }
+
 extension URLSession {
     func data(
         for request: URLRequest,
