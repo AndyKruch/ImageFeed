@@ -70,6 +70,7 @@ extension SplashViewController: AuthViewControllerDelegate {
             case .success(let token):
                 self.fetchProfile(token: token)
             case .failure:
+                self.showAlert()
                 UIBlockingProgressHUD.dismiss()
             }
         }
@@ -78,16 +79,25 @@ extension SplashViewController: AuthViewControllerDelegate {
     private func fetchProfile(token: String) {
         profileService.fetchProfile(token) { [weak self] result in
             guard let self = self else { return }
-            UIBlockingProgressHUD.dismiss()
             switch result {
             case .success(let profile):
                 self.profileImageService.fetchProfileImageURL(username: profile.username, token: token) { _ in }
                 self.switchToTabBarController()
                 UIBlockingProgressHUD.dismiss()
             case .failure:
+                self.showAlert()
                 UIBlockingProgressHUD.dismiss()
-                print("can't download profile")
             }
         }
     }
+    
+    private func showAlert() {
+             let alert = UIAlertController(title: "Что-то пошло не так(",
+                                           message: "Не удалось войти в систему",
+                                           preferredStyle: .alert)
+             let action = UIAlertAction(title: "Ок",
+                                        style: .default)
+             alert.addAction(action)
+             present(alert, animated: true)
+         }
 }
