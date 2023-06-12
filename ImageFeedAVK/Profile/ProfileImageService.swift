@@ -5,9 +5,61 @@
 //  Created by Andy Kruch on 11.06.23.
 //
 
+
 import Foundation
 
-final class ProfileImageService {
-    static let shared = ProfileImageService()
-    
-}
+ struct UserResult: Codable {
+     let profileImage: ImageResult
+
+     private enum CodingKeys: String, CodingKey {
+         case profileImage = "profile_image"
+     }
+ }
+
+ struct ImageResult: Codable {
+     let small: String
+     let medium: String
+     let large: String
+ }
+
+ final class ProfileImageService {
+     static let didChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
+     static let shared = ProfileImageService()
+     private (set) var avatarURL: String?
+     private let urlSession = URLSession.shared
+     private var task: URLSessionTask?
+
+     func fetchProfileImageURL(username: String, token: String, _ completion: @escaping (Result<String, Error>) -> Void) {
+
+         assert(Thread.isMainThread)
+         task?.cancel()
+
+         let request = makeRequest(token: token, username: username)
+         let task = urlSession.objectTask(for: request) { [weak self] (result: Result<UserResult, Error>) in
+             guard let self = self else { return }
+             switch result {
+             case .success(let profileImage):
+                 self.avatarURL = profileImage.profileImage.small
+                 completion(.success(profileImage.profileImage.small))
+                 NotificationCenter.default
+                     .post(name: ProfileImageService.didChangeNotification,
+                           object: self,
+                           userInfo: ["URL": profileImage.profileImage.small])
+             case .failure(let error):
+                 completion(.failure(error))
+             }
+         }
+         self.task = task
+         task.resume()
+     }
+
+     private func makeRequest(token: String, username: String) -> URLRequest {
+         var urlComponents = URLComponents()
+         urlComponents.path = "/users/\(username)"
+         guard let url = urlComponents.url(relativeTo: DefaultBaseURL) else { fatalError("Failed to create URL") }
+         var request = URLRequest(url: url)
+         request.httpMethod = "GET"
+         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+         return request
+     }
+ }
