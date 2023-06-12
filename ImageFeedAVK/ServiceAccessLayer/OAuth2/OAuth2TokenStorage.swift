@@ -7,45 +7,21 @@
 
 import Foundation
 
-protocol OAuth2TokenStorageProtocol {
-    
-    var token: String! {get}
-    func store(token: String)
-}
-
-
 final class OAuth2TokenStorage {
-
+    
     private enum Keys: String {
-        case token
-    }
-    
-    private let userDefaults: UserDefaults
-    private let decoder: JSONDecoder
-    private let encoder: JSONEncoder
-    
-    init(userDefaults: UserDefaults = .standard,
-         decoder: JSONDecoder = JSONDecoder(),
-         encoder: JSONEncoder = JSONEncoder()) {
-        self.userDefaults = userDefaults
-        self.decoder = decoder
-        self.encoder = encoder
-    }
-}
+        case bearerToken
+     }
 
-extension OAuth2TokenStorage: OAuth2TokenStorageProtocol {
-    
-    var token: String! {
-        get {
-            userDefaults.string(forKey: Keys.token.rawValue)
+     private let userDefaults = UserDefaults.standard
+     static let shared = OAuth2TokenStorage()
+
+     var token: String? {
+         get {
+            userDefaults.string(forKey: Keys.bearerToken.rawValue)
         }
         set {
-            userDefaults.set(newValue, forKey: Keys.token.rawValue)
+            userDefaults.set(newValue, forKey: Keys.bearerToken.rawValue)
         }
-        
-    }
-    func store(token: String) {
-        self.token = token
     }
 }
-

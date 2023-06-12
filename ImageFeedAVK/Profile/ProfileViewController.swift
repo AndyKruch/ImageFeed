@@ -8,7 +8,9 @@
 import UIKit
 
 final class ProfileViewController: UIViewController {
-  
+    
+    private let profileService = ProfileService.shared
+    
     private var nameLabel: UILabel!
     private var nickLabel: UILabel!
     private var profileDescription: UILabel!
@@ -20,12 +22,17 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        guard let profile = profileService.profile else { return }
+        updateProfileDetails(profile: profile)
+        
         setProfileImage()
         setNamelabel()
         setNickName()
         setDescription()
         setLogOutButton()
-                        
+        
+        
+        
     }
     
     
@@ -33,6 +40,11 @@ final class ProfileViewController: UIViewController {
         return .lightContent
     }
     
+    private func updateProfileDetails(profile: Profile) {
+        nameLabel.text = profile.name
+        nickLabel.text = profile.loginName
+        profileDescription.text = profile.bio
+    }
     
     
     private func setProfileImage() {
@@ -117,5 +129,5 @@ final class ProfileViewController: UIViewController {
         profileImageView?.tintColor = .gray
     }
     
-        
+    
 }
