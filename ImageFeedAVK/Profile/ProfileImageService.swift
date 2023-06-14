@@ -39,12 +39,12 @@ import Foundation
              guard let self = self else { return }
              switch result {
              case .success(let profileImage):
-                 self.avatarURL = profileImage.profileImage.small
-                 completion(.success(profileImage.profileImage.small))
+                 self.avatarURL = profileImage.profileImage.medium
+                 completion(.success(profileImage.profileImage.medium))
                  NotificationCenter.default
                      .post(name: ProfileImageService.didChangeNotification,
                            object: self,
-                           userInfo: ["URL": profileImage.profileImage.small])
+                           userInfo: ["URL": profileImage.profileImage.medium])
              case .failure(let error):
                  completion(.failure(error))
              }

@@ -60,6 +60,7 @@ final class ProfileViewController: UIViewController {
         super.viewDidLoad()
 
         updateAvatar()
+        view.backgroundColor = UIColor(named: "YP Black")
         
         guard let profile = profileService.profile else { return }
         updateProfileDetails(profile: profile)
@@ -93,7 +94,7 @@ final class ProfileViewController: UIViewController {
             let profileImageURL = profileImageService.avatarURL,
             let url = URL(string: profileImageURL)
         else { return }
-        let processor = RoundCornerImageProcessor(cornerRadius: 35)
+        let processor = RoundCornerImageProcessor(cornerRadius: 35, backgroundColor: UIColor(named: "YP Black"))
         profileImage.kf.setImage(with: url,
                                  placeholder: UIImage(named: "person.crop.circle.fill"),
                                  options: [.processor(processor)])
