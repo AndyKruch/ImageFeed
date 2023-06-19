@@ -22,7 +22,7 @@
                                 <color key="backgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationWidth="10" reuseIdentifier="ImagesListCell" rowHeight="224" id="3dd-nn-nMj" customClass="ImagesListCell" customModule="ImageFeedAVK" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationWidth="10" reuseIdentifier="ImagesListCell" rowHeight="224" id="3dd-nn-nMj" customClass="ImagesListCell" customModule="ImageFeedAVK" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="414" height="224"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3dd-nn-nMj" id="ZmB-Rh-sRh">
@@ -313,7 +313,6 @@
         <!--Navigation Controller-->
         <scene sceneID="JCT-pr-hrT">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4nA-fw-rM4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController id="Igj-07-9fO" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qU9-gb-Kuv">
                         <rect key="frame" x="0.0" y="48" width="414" height="44"/>
@@ -323,6 +322,7 @@
                         <segue destination="FYI-dT-u5d" kind="relationship" relationship="rootViewController" id="B1h-Im-vw3"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4nA-fw-rM4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2620" y="-1280"/>
         </scene>
