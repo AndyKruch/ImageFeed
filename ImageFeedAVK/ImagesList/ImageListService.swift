@@ -43,19 +43,10 @@ struct Photo {
     let size: CGSize
     let createdAt: Date?
     let welcomeDescription: String?
-    let thumbImageURL: String
-    let largeImageURL: String
+    let thumbImageURL: String?
+    let largeImageURL: String?
     let isLiked: Bool
     
-    enum CodingKeys: String, CodingKey {
-        case id = "id"
-        case createdAt = "created_at"
-        case welcomeDescription = "description"
-        case isLiked = "liked_by_user"
-        case urls = "urls"
-        case width = "width"
-        case height = "height"
-    }
 }
 
 
@@ -76,27 +67,29 @@ extension ImagesListService {
     func fetchPhotosNextPage() {
         
         assert(Thread.isMainThread)
-        task?.cancel()
-        
-        guard let token = oAuth2TokenStorage.token else { return }
+        guard task == nil else { return }
+
         let page = lastLoadedPage == nil ? 1 : lastLoadedPage! + 1
-        let request = makeRequest(token: token, page: String(page), perPage: perPage)
-        
-        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<[PhotoResult], Error>) in
-            guard let self = self else { return }
-            switch result {
-            case .success(let photoResults):
-                for photoResult in photoResults {
-                    self.photos.append(self.convert(photoResult))
+        guard let token = oAuth2TokenStorage.token else { return }
+        guard let request = fetchImagesListRequest(token, page: String(page), perPage: perPage) else { return }
+        let task = URLSession.shared.objectTask(for: request) { [weak self] (result: Result<[PhotoResult], Error>) in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                switch result {
+                case .success(let photoResults):
+                    for photoResult in photoResults {
+                        self.photos.append(self.convert(photoResult))
+                    }
+                    self.lastLoadedPage = page
+                    NotificationCenter.default
+                        .post(
+                            name: ImagesListService.DidChangeNotification,
+                            object: self,
+                            userInfo: ["Images" : self.photos])
+                case .failure(let error):
+                    assertionFailure("Ошибка получения изображений \(error)")
                 }
-                self.lastLoadedPage = page
-                NotificationCenter.default
-                    .post(
-                        name: ImagesListService.DidChangeNotification,
-                        object: self,
-                        userInfo: ["Images" : self.photos])
-            case .failure(_):
-                break
+                self.task = nil
             }
         }
         self.task = task
@@ -119,7 +112,7 @@ extension ImagesListService {
                           isLiked: photoResult.isLiked ?? false)
     }
     
-    private func makeRequest(token: String, page: String, perPage: String) -> URLRequest {
+    private func fetchImagesListRequest(_ token: String, page: String, perPage: String) -> URLRequest? {
         var urlComponents = URLComponents()
         urlComponents.path = "/photos?page=\(page)&&per_page=\(perPage)"
         
