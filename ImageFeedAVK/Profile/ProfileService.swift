@@ -35,6 +35,7 @@ final class ProfileService: ProfileServiceProtocol {
         return request
     }
     
+    
     func fetchProfile(_ token: String, completion: @escaping (Result<Profile, Error>) -> Void) {
         assert(Thread.isMainThread)
         task?.cancel()
@@ -60,5 +61,11 @@ final class ProfileService: ProfileServiceProtocol {
         }
         self.task = task
         task.resume()
+    }
+    
+    func clean() {
+        profile = nil
+        task?.cancel()
+        task = nil
     }
 }

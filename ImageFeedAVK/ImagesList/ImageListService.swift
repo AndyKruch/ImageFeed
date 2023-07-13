@@ -63,6 +63,13 @@ final class ImagesListService {
         }.resume()
     }
     
+    func clean() {
+        photos = []
+        lastLoadedPage = nil
+        task?.cancel()
+        task = nil
+    }
+    
     func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void) {
         if task != nil { return }
         

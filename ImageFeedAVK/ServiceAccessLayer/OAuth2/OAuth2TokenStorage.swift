@@ -14,7 +14,7 @@ final class OAuth2TokenStorage {
         case bearerToken
     }
     
-    private let keychain = UserDefaults.standard
+    private let keychain = KeychainWrapper.standard
     static let shared = OAuth2TokenStorage()
     
     var token: String? {
@@ -28,5 +28,9 @@ final class OAuth2TokenStorage {
                 keychain.removeObject(forKey: Keys.bearerToken.rawValue)
             }
         }
+    }
+    
+    func clearToken() {
+        keychain.removeAllKeys()
     }
 }
