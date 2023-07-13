@@ -62,4 +62,31 @@ final class ImagesListService {
             self.task = nil
         }.resume()
     }
+    
+    func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void) {
+        if task != nil { return }
+        
+        guard let url = URL(string: "\(unsplashGetListPhotos)/\(photoId)/like"),
+              let token = token
+        else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = isLike ? "POST" : "DELETE"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        let session = urlSession
+        session.objectTask(for: request) { [weak self] (result: Result<PhotoLikeResult, Error>) in
+            guard let self = self else { return }
+            switch result {
+            case .success(_):
+                guard let index = self.photos.firstIndex(where: { $0.id == photoId }) else { return }
+                let photo = self.photos[index]
+                self.photos[index].isLiked = !photo.isLiked
+                completion(.success(()))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            self.task = nil
+        }.resume()
+    }
 }
