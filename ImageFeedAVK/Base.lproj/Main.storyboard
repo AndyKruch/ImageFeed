@@ -53,6 +53,9 @@
                                                     </constraints>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="LikeActive"/>
+                                                    <connections>
+                                                        <action selector="likeButtonClicked" destination="3dd-nn-nMj" eventType="touchUpInside" id="d1B-77-2EL"/>
+                                                    </connections>
                                                 </button>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imageGradient" translatesAutoresizingMaskIntoConstraints="NO" id="kVM-jr-2DY">
                                                     <rect key="frame" x="16" y="190" width="382" height="30"/>
