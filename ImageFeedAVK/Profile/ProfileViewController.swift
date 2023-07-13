@@ -8,137 +8,198 @@
 import UIKit
 import Kingfisher
 
-final class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController {
     
-    private let profileImageServiceNotification = ProfileImageService.didChangeNotification
-    private let profileImageService = ProfileImageService.shared
-    private let profileService = ProfileService.shared
-    private var profileImageServiceObserver: NSObjectProtocol?
-    
-    private var profileImage: UIImageView = {
-        let image = UIImage(named: "avatar")
-        let imageView = UIImageView(image: image)
+    //MARK: - Properties
+    private lazy var profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
-    private var nameLabel: UILabel = {
-        let nameLabel = UILabel()
-        nameLabel.text = "Екатерина Новикова"
-        nameLabel.textColor = UIColor(named: "YP White")
-        nameLabel.font = UIFont.boldSystemFont(ofSize: 23)
-        return nameLabel
+    private lazy var nameLabel: UILabel = {
+        let label = UILabel()
+        label.config(
+            for: label,
+            text: "Екатерина Новикова",
+            fontSize: 23,
+            textColor: .ypWhite)
+        return label
+    }()
+    private lazy var usernameLabel: UILabel = {
+        let label = UILabel()
+        label.config(
+            for: label,
+            text: "@ekaterina_nov",
+            fontSize: 13,
+            textColor: .ypGray)
+        return label
+    }()
+    private lazy var statusLabel: UILabel = {
+        let label = UILabel()
+        label.config(
+            for: label,
+            text: "Hello, world!",
+            fontSize: 13,
+            textColor: .ypWhite)
+        return label
+    }()
+    private lazy var logoutButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(named: "exit_button"), for: .normal)
+        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        button.tintColor = .ypRed
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
-    private var nicknameLabel: UILabel = {
-        let nickNameLabel = UILabel()
-        nickNameLabel.text = "@ekaterina_nov"
-        nickNameLabel.textColor = UIColor(named: "YP Gray")
-        nickNameLabel.font = UIFont.systemFont(ofSize: 13)
-        return nickNameLabel
-    }()
+    private let profileService = ProfileService.shared
+    private let profileImageService = ProfileImageService.shared
+    private let oAuth2TokenStorage = OAuth2TokenStorage()
     
-    private var descriptionLabel: UILabel = {
-        let descriptionLabel = UILabel()
-        descriptionLabel.text = "Hello, World!"
-        descriptionLabel.textColor = UIColor(named: "YP White")
-        descriptionLabel.font = UIFont.systemFont(ofSize: 13)
-        return descriptionLabel
-    }()
+    private var profileImageServiceObserver: NSObjectProtocol?
     
-    private var exitButton: UIButton = {
-        let exitButtonImage = UIImage(systemName: "ipad.and.arrow.forward")
-        let exitButton = UIButton.systemButton(with: exitButtonImage!,
-                                               target: nil,
-                                               action: #selector(didTapButton))
-        exitButton.tintColor = UIColor(named: "YP Red")
-        return exitButton
-    }()
-    
-
-    
+    //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        updateAvatar()
-        view.backgroundColor = UIColor(named: "YP Black")
-        
-        guard let profile = profileService.profile else { return }
-        updateProfileDetails(profile: profile)
-        
+        showGradientAnimation()
+        setupProfileInfo(profileService.profile ?? Profile(
+            username: "",
+            name: "",
+            loginName: "",
+            bio: ""
+        ))
+        view.backgroundColor = .ypBlack
         addSubviews()
-        addConstraints()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
+        setupConstraints()
         profileImageServiceObserver = NotificationCenter.default
-            .addObserver(forName: profileImageServiceNotification,
-                         object: nil,
-                         queue: .main) { [weak self] _ in
-                guard let self = self else { return }
-                self.updateAvatar()
-            }
+                    .addObserver(
+                        forName: ProfileImageService.didChangeNotification,
+                        object: nil,
+                        queue: .main
+                    ) { [weak self] _ in
+                        guard let self = self else { return }
+                        self.updateAvatar()
+                    }
+        updateAvatar()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    //MARK: - Helpers
+    private func addSubviews() {
+        view.addSubview(profileImageView)
+        view.addSubview(nameLabel)
+        view.addSubview(usernameLabel)
+        view.addSubview(statusLabel)
+        view.addSubview(logoutButton)
+    }
+    
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            profileImageView.widthAnchor.constraint(equalToConstant: 70),
+            profileImageView.heightAnchor.constraint(equalToConstant: 70),
+            profileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            profileImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            nameLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 8),
+            nameLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor),
+            usernameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
+            usernameLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor),
+            statusLabel.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 8),
+            statusLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor),
+            logoutButton.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor),
+            logoutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+        ])
+    }
+    
+    private func showGradientAnimation() {
+        let imageGradient = CAGradientLayer().createLoadingGradient(
+            width: 70, height: 70, radius: 35
+        )
+        let nameLabelGradient = CAGradientLayer().createLoadingGradient(
+            width: 223, height: 18, radius: 9
+        )
+        let usernameLabelGradient = CAGradientLayer().createLoadingGradient(
+            width: 69, height: 18, radius: 9
+        )
+        let statusLabelGradient = CAGradientLayer().createLoadingGradient(
+            width: 67, height: 18, radius: 9
+        )
         
-        NotificationCenter.default.removeObserver(self, name: profileImageServiceObserver as? NSNotification.Name, object: nil)
+        profileImageView.layer.addSublayer(imageGradient)
+        nameLabel.layer.addSublayer(nameLabelGradient)
+        usernameLabel.layer.addSublayer(usernameLabelGradient)
+        statusLabel.layer.addSublayer(statusLabelGradient)
     }
     
-    // MARK: private func
+    private func removeGradientAnimation(_ views: [UIView]) {
+        for view in views {
+            view.layer.sublayers?.removeAll()
+        }
+    }
+    
+    private func setupProfileInfo(_ profile: Profile) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.removeGradientAnimation(
+                [self.nameLabel,
+                 self.usernameLabel,
+                 self.statusLabel]
+            )
+            self.nameLabel.text = profile.name
+            self.usernameLabel.text = profile.loginName
+            self.statusLabel.text = profile.bio
+        }
+    }
     
     private func updateAvatar() {
-        guard
-            let profileImageURL = profileImageService.avatarURL,
-            let url = URL(string: profileImageURL)
-        else { return }
-        let processor = RoundCornerImageProcessor(cornerRadius: 35, backgroundColor: UIColor(named: "YP Black"))
-        profileImage.kf.setImage(with: url,
-                                 placeholder: UIImage(named: "person.crop.circle.fill"),
-                                 options: [.processor(processor)])
+        if let profileImageURL = profileImageService.avatarURL,
+           let url = URL(string: profileImageURL) {
+            
+            let cache = ImageCache.default
+            cache.clearMemoryCache()
+            cache.clearDiskCache()
+            
+            let processor = RoundCornerImageProcessor(cornerRadius: 35, backgroundColor: UIColor.ypBlack)
+            
+            self.profileImageView.kf.indicatorType = .activity
+            self.profileImageView.kf.setImage(
+                with: url,
+                placeholder: UIImage(named: "person.crop.circle.fill"),
+                options: [.processor(processor)]
+            ) { result in
+                switch result {
+                case .success(let value):
+                    print("Аватарка \(value.image) была успешно загружена и заменена в профиле")
+                    self.removeGradientAnimation([self.profileImageView])
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        } else {
+            profileImageView.image = UIImage(named: "person.crop.circle.fill")
+            self.removeGradientAnimation([self.profileImageView])
+        }
     }
     
-    private func updateProfileDetails(profile: Profile) {
-        nameLabel.text = profile.name
-        nicknameLabel.text = profile.loginName
-        descriptionLabel.text = profile.bio
-    }
-    
-    private func addConstraints() {
-        profileImage.translatesAutoresizingMaskIntoConstraints = false
-        profileImage.heightAnchor.constraint(equalToConstant: 70).isActive = true
-        profileImage.widthAnchor.constraint(equalToConstant: 70).isActive = true
-        profileImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
-        profileImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 76).isActive = true
-        
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
-        nameLabel.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 8).isActive = true
-        
-        nicknameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nicknameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
-        nicknameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8).isActive = true
-        
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
-        descriptionLabel.topAnchor.constraint(equalTo: nicknameLabel.bottomAnchor, constant: 8).isActive = true
-        
-        exitButton.translatesAutoresizingMaskIntoConstraints = false
-        exitButton.centerYAnchor.constraint(equalTo: profileImage.centerYAnchor).isActive = true
-        exitButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -26).isActive = true
-    }
-    
-    private func addSubviews() {
-        view.addSubview(profileImage)
-        view.addSubview(nameLabel)
-        view.addSubview(nicknameLabel)
-        view.addSubview(descriptionLabel)
-        view.addSubview(exitButton)
+    private func logoutFromProfile() {
+        oAuth2TokenStorage.token = nil
+        WebViewViewController.clean()
+        let storyboard = UIStoryboard(name: "Main", bundle: .main)
+        guard let authViewController = storyboard.instantiateViewController(
+            withIdentifier: "AuthViewController"
+        ) as? AuthViewController else { return }
+        authViewController.modalPresentationStyle = .fullScreen
+        present(authViewController, animated: true)
     }
     
     @objc private func didTapButton() {
-        
+        showDoubleAlert(
+            title: "До встречи!",
+            message: "Уверены, что хотите выйти?",
+            firstAction: "Да",
+            secondAction: "Нет"
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            self.logoutFromProfile()
+        } _: { _ in }
     }
+    
 }

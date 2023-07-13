@@ -14,7 +14,7 @@ final class OAuth2TokenStorage {
         case bearerToken
     }
     
-    private let keychain = KeychainWrapper.standard
+    private let keychain = UserDefaults.standard
     static let shared = OAuth2TokenStorage()
     
     var token: String? {

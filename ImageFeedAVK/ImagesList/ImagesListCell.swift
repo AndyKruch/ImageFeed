@@ -49,7 +49,7 @@ final class ImagesListCell: UITableViewCell {
         
         cell.cellImage.kf.setImage(
             with: url,
-            placeholder: UIImage(named: "placeholder_list_photos")) { [weak self] _ in
+            placeholder: UIImage(named: "Stub")) { [weak self] _ in
                 self?.cellImage.layer.sublayers?.removeAll()
             }
         
@@ -64,14 +64,14 @@ final class ImagesListCell: UITableViewCell {
     }
     
     func setIsLiked(_ state: Bool) {
-        let likeImage = state ? UIImage(named: "active") : UIImage(named: "noActive")
+        let likeImage = state ? UIImage(named: "LikeActive") : UIImage(named: "LikeNoActive")
         likeButton.setImage(likeImage, for: .normal)
     }
     
     private func showGradientAnimation(for cell: ImagesListCell) {
         let gradientAnimation = CAGradientLayer().createLoadingGradient(
             width: UIScreen.main.bounds.width - 32,
-            height: UIImage(named: "placeholder_list_photos")?.size.height ?? 252,
+            height: UIImage(named: "Stub")?.size.height ?? 252,
             radius: 16
         )
         cell.cellImage.layer.addSublayer(gradientAnimation)
