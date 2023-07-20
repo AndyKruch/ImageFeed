@@ -7,6 +7,13 @@
 
 import Foundation
 
+var dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .long
+    formatter.timeStyle = .none
+    return formatter
+}()
+
 struct PhotoResult: Codable {
     let id: String
     let createdAt: String?

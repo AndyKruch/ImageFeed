@@ -29,6 +29,14 @@ final class ImagesListCell: UITableViewCell {
     private let imageListService = ImagesListService.shared
     weak var delegate: ImagesListCellDelegate?
     
+    lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .none
+        formatter.locale = Locale(identifier: "ru_ru")
+        return formatter
+    }()
+    
     //MARK: - LifeCycle
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -55,7 +63,8 @@ final class ImagesListCell: UITableViewCell {
         
         if photos[indexPath.row].createdAt != nil {
             let photo = photos[indexPath.row]
-            cell.dateLabel.text = photo.createdAt?.dateTimeString
+            let dateImageCreated =  photo.createdAt
+            cell.dateLabel.text = (dateImageCreated != nil) ? dateFormatter.string(from:  dateImageCreated!) : ""
         } else {
             cell.dateLabel.text = ""
         }

@@ -20,13 +20,14 @@ final class ImagesListService {
     private let token = OAuth2TokenStorage().token
     
     func fetchPhotosNextPage() {
-        if task != nil { return }
+        assert(Thread.isMainThread)
+        task?.cancel()
         
         let nextPage: Int
         if let lastLoadedPage {
             nextPage = lastLoadedPage + 1
         } else {
-            nextPage = 1
+            nextPage = 0
         }
         
         guard var urlComponents = URLComponents(string: unsplashGetListPhotos) else { return }
@@ -42,7 +43,7 @@ final class ImagesListService {
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         let session = urlSession
-        session.objectTask(for: request) { [weak self] (result: Result<[PhotoResult], Error>) in
+        let task = session.objectTask(for: request) { [weak self] (result: Result<[PhotoResult], Error>) in
             guard let self = self else { return }
             
             DispatchQueue.main.async {
@@ -60,7 +61,9 @@ final class ImagesListService {
                 }
             }
             self.task = nil
-        }.resume()
+        }
+        self.task = task
+        task.resume()
     }
     
     func clean() {
