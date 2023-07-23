@@ -11,7 +11,7 @@ import Kingfisher
 final class SingleImageViewController: UIViewController {
    
     //MARK: - Properties
-    var imageUrl: URL! {
+    var imageURL: URL! {
         didSet {
             guard isViewLoaded else { return }
         }
@@ -40,7 +40,7 @@ final class SingleImageViewController: UIViewController {
     //MARK: - Helpers
     private func setupImage() {
         UIBlockingProgressHUD.show()
-        imageView.kf.setImage(with: imageUrl) { [weak self] result in
+        imageView.kf.setImage(with: imageURL) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let imageResult):

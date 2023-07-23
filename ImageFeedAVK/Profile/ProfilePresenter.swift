@@ -51,7 +51,7 @@ final class ProfilePresenter: ProfilePresenterProtocol {
     func observeAvatarChanges() {
         profileImageServiceObserver = NotificationCenter.default
             .addObserver(
-                forName: ProfileImageService.didChangeNotification,
+                forName: ProfileImageService.DidChangeNotification,
                 object: nil,
                 queue: .main
             ) { [weak self] _ in

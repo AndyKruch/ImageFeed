@@ -7,51 +7,73 @@
 
 import Foundation
 
-
 final class OAuth2Service {
-    
+    static let shared = OAuth2Service()
     private let urlSession = URLSession.shared
+    private let tokenStorage = OAuth2TokenStorage.shared
     private var task: URLSessionTask?
     private var lastCode: String?
-    static let shared = OAuth2Service()
     
-    func fetchAuthToken(_ code: String, completion: @escaping (Result<String, Error>) -> Void) {
-        
+    func fetchOAuthToken(_ code: String, completion: @escaping (Result<String, Error>) -> Void ) {
         assert(Thread.isMainThread)
-        if lastCode == code { return }
+        if lastCode == code {return}
         task?.cancel()
         lastCode = code
         
-        let request = makeRequest(code: code)
-        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<OAuthTokenResponseBody, Error>) in
-            guard let self = self else { return }
-            self.task = nil
+        let request = authTokenRequest(code: code)
+        let session = urlSession
+        let task = session.objectTask(for: request) { [weak self] (result: Result<OAuthTokenResponseBody, Error>) in
             switch result {
-            case .success(let responseBody):
-                let authToken = responseBody.accessToken
-                completion(.success(authToken))
+            case .success(let decodedObject):
+                completion(.success(decodedObject.accessToken))
+                self?.task = nil
             case .failure(let error):
                 completion(.failure(error))
             }
         }
-        
         self.task = task
         task.resume()
     }
-    
-    private func makeRequest(code: String) -> URLRequest {
-        var urlComponents = URLComponents(string: unsplashAuthorizeTokenURLString)
-        urlComponents?.queryItems = [
-            URLQueryItem(name: "client_id", value: AccessKey),
-            URLQueryItem(name: "client_secret", value: SecretKey),
-            URLQueryItem(name: "redirect_uri", value: RedirectURI),
-            URLQueryItem(name: "code", value: code),
-            URLQueryItem(name: "grant_type", value: "authorization_code")
-        ]
-        guard let url = urlComponents?.url else { fatalError("Failed to create URL") }
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
+}
+
+private func authTokenRequest(code: String) -> URLRequest {
+    URLRequest.makeHTTPRequest(
+        path: "/oauth/token"
+        + "?client_id=\(APIConstants.accessKey)"
+        + "&&client_secret=\(APIConstants.secretKey)"
+        + "&&redirect_uri=\(APIConstants.redirectURI)"
+        + "&&code=\(code)"
+        + "&&grant_type=authorization_code",
+        httpMethod: "POST",
+        baseURL: URL(string: "\(APIConstants.baseURL)")!
+    )}
+
+// MARK: - Decoding
+
+struct OAuthTokenResponseBody: Decodable {
+    let accessToken, tokenType, scope: String
+    let createdAt: Date
+   
+    enum CodingKeys: String, CodingKey {
+        case accessToken = "access_token"
+        case tokenType = "token_type"
+        case scope
+        case createdAt = "created_at"
+    }
+}
+
+// MARK: - HTTP Request
+
+extension URLRequest {
+    static func makeHTTPRequest(path: String, httpMethod: String, baseURL: URL = APIConstants.defaultBaseURL) -> URLRequest {
+        var request = URLRequest(url: URL(string: path, relativeTo: baseURL)!)
+        request.httpMethod = httpMethod
         return request
     }
 }
 
+// MARK: - Network Connection
+
+private enum NetworkError: Error {
+        case codeError
+    }

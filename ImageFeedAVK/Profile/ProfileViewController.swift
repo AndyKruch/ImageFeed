@@ -1,10 +1,3 @@
-//
-//  ProfileViewController.swift
-//  ImageFeedAVK
-//
-//  Created by Andy Kruch on 17.05.23.
-//
-
 import UIKit
 import Kingfisher
 
@@ -50,7 +43,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
         let nicknameLabel = UILabel()
         nicknameLabel.text = "@ekaterina_nov"
         nicknameLabel.font = UIFont.systemFont(ofSize: 13)
-        nicknameLabel.textColor = .ypGray
+        nicknameLabel.textColor = .ypGrey
         nicknameLabel.translatesAutoresizingMaskIntoConstraints = false
         return nicknameLabel
     }()

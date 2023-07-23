@@ -9,13 +9,11 @@
 import UIKit
 
 final class ProfilePresenterSpy: ProfilePresenterProtocol {
-    
-    var viewDidLoadCalled: Bool = false
     var view: ProfileViewControllerProtocol?
+    var viewDidLoadCalled: Bool = false
     var didLogoutCalled: Bool = false
     var clean: Bool = false
     var observe: Bool = false
-    var alert: Bool = false
 
     var profileService: ImageFeedAVK.ProfileService
     
@@ -33,7 +31,7 @@ final class ProfilePresenterSpy: ProfilePresenterProtocol {
     }
     
     func logout() {
-         didLogoutCalled = true
+        didLogoutCalled = true
     }
     
     func cleanServicesData() {
@@ -41,7 +39,7 @@ final class ProfilePresenterSpy: ProfilePresenterProtocol {
     }
     
     func getUrlForProfileImage() -> URL? {
-        return URL(string: "\(DefaultBaseURL!)")
+        return URL(string: "\(APIConstants.baseURL)")
     }
     
     func viewDidLoad() {
@@ -51,5 +49,4 @@ final class ProfilePresenterSpy: ProfilePresenterProtocol {
     func makeAlert() -> UIAlertController {
         UIAlertController()
     }
-    
 }

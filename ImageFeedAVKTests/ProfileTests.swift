@@ -34,7 +34,7 @@ final class ProfileTests: XCTestCase {
         let url = presenter.getUrlForProfileImage()?.absoluteString
         
         //then
-        XCTAssertEqual(url, "\(DefaultBaseURL!)")
+        XCTAssertEqual(url, "\(APIConstants.baseURL)")
     }
     
     func testExitFromProfile() {
