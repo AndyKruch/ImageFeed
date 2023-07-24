@@ -49,7 +49,7 @@ final class ImagesListViewController: UIViewController, ImagesListViewController
         NotificationCenter.default.removeObserver(self, name: ImagesListService.DidChangeNotification, object: nil)
     }
     
-    internal func updateTableViewAnimated() {
+    func updateTableViewAnimated() {
         let oldCount = photos.count
         guard let newCount = presenter?.imagesListService.photos.count else { return }
         guard let newPhotos = presenter?.imagesListService.photos else { return }
@@ -94,6 +94,7 @@ extension ImagesListViewController {
             cell.dateLabel.text = ""
         }
         let isLiked = imagesListService.photos[IndexPath.row].isLiked == false
+        cell.likeButton.accessibilityIdentifier = "likeButton"
         let likeImage = isLiked ? UIImage(named: "No Active") : UIImage(named: "Active")
         cell.likeButton.setImage(likeImage, for: .normal)
         cell.selectionStyle = .none
@@ -114,7 +115,9 @@ extension ImagesListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        presenter?.checkCompletedList(indexPath)
+        if let visibleIndexPaths = tableView.indexPathsForVisibleRows, visibleIndexPaths.contains(indexPath) {
+            presenter?.checkCompletedList(indexPath)
+        }
     }
 }
 
@@ -139,18 +142,18 @@ extension ImagesListViewController: ImagesListCellDelegate {
         }
     }
     //MARK: - Alert
-    internal func showLikeErrorAlert(with error: Error)  {
+    func showLikeErrorAlert(with error: Error)  {
         guard let alert = presenter?.makeAlert(with: Error.self as! Error) else { return }
         present(alert, animated: true, completion: nil)
     }
 }
 
 extension ImagesListViewController: UITableViewDataSource {
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return photos.count
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ImagesListCell.reuseIdentifier, for: indexPath)
         guard let imagesListCell = cell as? ImagesListCell else {
             return UITableViewCell()

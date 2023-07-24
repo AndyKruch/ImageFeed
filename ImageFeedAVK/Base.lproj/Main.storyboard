@@ -47,12 +47,13 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hcN-x9-zWx" userLabel="Like Active">
                                                     <rect key="frame" x="354" y="4" width="44" height="44"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="likeButton"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="hcN-x9-zWx" secondAttribute="height" multiplier="1:1" id="999-mc-Ai1"/>
                                                         <constraint firstAttribute="width" constant="44" id="QDj-Ke-OVc"/>
                                                     </constraints>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" image="LikeActive"/>
+                                                    <state key="normal" image="Active"/>
                                                     <connections>
                                                         <action selector="likeButtonClicked" destination="3dd-nn-nMj" eventType="touchUpInside" id="d1B-77-2EL"/>
                                                     </connections>
@@ -153,6 +154,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B5q-0q-YQT" userLabel="Go Back Button">
                                 <rect key="frame" x="8" y="8" width="48" height="48"/>
+                                <accessibility key="accessibilityConfiguration" identifier="backButton"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="Sut-FX-p3u"/>
                                     <constraint firstAttribute="width" constant="48" id="yNK-Hq-ohs"/>
@@ -206,24 +208,25 @@
             </objects>
             <point key="canvasLocation" x="-3236" y="-544"/>
         </scene>
-        <!--Auth View Controller-->
+        <!--AuthViewController-->
         <scene sceneID="tL6-IE-S31">
             <objects>
-                <viewController storyboardIdentifier="AuthViewController" id="FYI-dT-u5d" userLabel="Auth View Controller" customClass="AuthViewController" customModule="ImageFeedAVK" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthViewController" id="FYI-dT-u5d" userLabel="AuthViewController" customClass="AuthViewController" customModule="ImageFeedAVK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ieE-uL-9q7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="auth_image_logo" translatesAutoresizingMaskIntoConstraints="NO" id="rqw-zf-Fh6">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="auth_image_logo" translatesAutoresizingMaskIntoConstraints="NO" id="rqw-zf-Fh6" userLabel="auth_screen_logo">
                                 <rect key="frame" x="177" y="447" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="rqw-zf-Fh6" secondAttribute="height" multiplier="1:1" id="2XH-0p-4bD"/>
                                     <constraint firstAttribute="width" constant="60" id="aeI-D9-BWX"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E58-dD-klv">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E58-dD-klv" userLabel="LoginButton">
                                 <rect key="frame" x="16" y="724" width="382" height="48"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Authenticate"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="9Sz-Hf-mWF"/>
                                 </constraints>
@@ -273,7 +276,7 @@
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ydp-5w-xmZ">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ydp-5w-xmZ" userLabel="BackButton">
                                 <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="48" id="B4s-QX-LYc"/>
@@ -292,6 +295,9 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="jYQ-di-LPG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <accessibility key="accessibilityConfiguration" identifier="UnsplashWebView">
+                            <bool key="isElement" value="YES"/>
+                        </accessibility>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="ltL-ob-aWy" secondAttribute="bottom" id="BYW-wa-eaI"/>
                             <constraint firstAttribute="trailing" secondItem="ltL-ob-aWy" secondAttribute="trailing" id="Dq3-Mz-6PK"/>
@@ -332,7 +338,7 @@
     </scenes>
     <resources>
         <image name="0" width="200" height="132"/>
-        <image name="LikeActive" width="44" height="44"/>
+        <image name="Active" width="44" height="44"/>
         <image name="auth_image_logo" width="60" height="60"/>
         <image name="imageGradient" width="343" height="30"/>
         <image name="nav_back_button" width="9" height="16"/>
