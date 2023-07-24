@@ -2,10 +2,11 @@ import XCTest
 
 final class ImageFeed_UITests: XCTestCase {
     
-    private let login = "avk.16@yandex.ru"
-    private let password = "vubje4-cygtYg-xijzet"
-    private let userName = "Andy Kruch"
-    private let nickname = "@andy_kruch"
+//    Перед началом теста необходимо заполнить данные:
+    private let login = ""
+    private let password = ""
+    private let userName = ""
+    private let nickname = ""
     
     private let app = XCUIApplication()
     
@@ -18,13 +19,13 @@ final class ImageFeed_UITests: XCTestCase {
         app.buttons["Authenticate"].tap()
         
         let webView = app.webViews["UnsplashWebView"]
-        XCTAssertTrue(webView.waitForExistence(timeout: 5))
+        XCTAssertTrue(webView.waitForExistence(timeout: 10))
         
         let loginTextField = webView.descendants(matching: .textField).element
-        XCTAssertTrue(webView.waitForExistence(timeout: 10))
+        XCTAssertTrue(webView.waitForExistence(timeout: 4))
         loginTextField.tap()
         loginTextField.typeText(login)
-                webView.swipeUp()
+        webView.swipeUp()
         
         let passwordTextField = webView.descendants(matching: .secureTextField).element
         XCTAssertTrue(webView.waitForExistence(timeout: 4))

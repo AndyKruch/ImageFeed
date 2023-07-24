@@ -30,12 +30,10 @@
 		317777882A2F8F0B00B167E4 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317777872A2F8F0B00B167E4 /* SplashViewController.swift */; };
 		3183C5B62A38629A00A6371D /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 3183C5B52A38629A00A6371D /* SwiftKeychainWrapper */; };
 		3183C5B82A386C6000A6371D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3183C5B72A386C6000A6371D /* TabBarController.swift */; };
-		319BB95D2A6075ED0095F133 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319BB95C2A6075ED0095F133 /* DateFormatter.swift */; };
 		319BB9812A607C9B0095F133 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319BB9802A607C9B0095F133 /* Colors.swift */; };
 		319BB9842A6082B40095F133 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319BB9832A6082B40095F133 /* UILabel.swift */; };
 		319BB9862A6083140095F133 /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319BB9852A6083140095F133 /* Gradient.swift */; };
 		319BB9882A6083400095F133 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319BB9872A6083400095F133 /* UIImage.swift */; };
-		319BB98A2A6083700095F133 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319BB9892A6083700095F133 /* UIViewController.swift */; };
 		31AAA5F22A35C18C0056479B /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 31AAA5F12A35C18C0056479B /* ProgressHUD */; };
 		31AAA5F42A35CDBA0056479B /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AAA5F32A35CDBA0056479B /* UIBlockingProgressHUD.swift */; };
 		31AAA5F62A35D2080056479B /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AAA5F52A35D2080056479B /* ProfileService.swift */; };
@@ -109,12 +107,10 @@
 		317777842A2F89C500B167E4 /* OAuth2TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2TokenStorage.swift; sourceTree = "<group>"; };
 		317777872A2F8F0B00B167E4 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		3183C5B72A386C6000A6371D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		319BB95C2A6075ED0095F133 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		319BB9802A607C9B0095F133 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		319BB9832A6082B40095F133 /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		319BB9852A6083140095F133 /* Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradient.swift; sourceTree = "<group>"; };
 		319BB9872A6083400095F133 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
-		319BB9892A6083700095F133 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		31AAA5F32A35CDBA0056479B /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		31AAA5F52A35D2080056479B /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		31AAA5FD2A379E330056479B /* ProfileImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageService.swift; sourceTree = "<group>"; };
@@ -245,9 +241,7 @@
 				317777782A2F2EC400B167E4 /* AuthConfiguration.swift */,
 				319BB9832A6082B40095F133 /* UILabel.swift */,
 				31AAA6022A37AC110056479B /* NetworkConnection.swift */,
-				319BB9892A6083700095F133 /* UIViewController.swift */,
 				319BB9872A6083400095F133 /* UIImage.swift */,
-				319BB95C2A6075ED0095F133 /* DateFormatter.swift */,
 				319BB9852A6083140095F133 /* Gradient.swift */,
 				31AAA5F32A35CDBA0056479B /* UIBlockingProgressHUD.swift */,
 			);
@@ -584,12 +578,10 @@
 				317777852A2F89C500B167E4 /* OAuth2TokenStorage.swift in Sources */,
 				31AAA5F42A35CDBA0056479B /* UIBlockingProgressHUD.swift in Sources */,
 				31AAA6032A37AC110056479B /* NetworkConnection.swift in Sources */,
-				319BB98A2A6083700095F133 /* UIViewController.swift in Sources */,
 				31FDC2F32A0020D800F50BB4 /* AppDelegate.swift in Sources */,
 				31AAA5FE2A379E330056479B /* ProfileImageService.swift in Sources */,
 				3149A5252A1A91C3002C32E2 /* SingleImageViewController.swift in Sources */,
 				31FDC2F52A0020D800F50BB4 /* SceneDelegate.swift in Sources */,
-				319BB95D2A6075ED0095F133 /* DateFormatter.swift in Sources */,
 				3177777D2A2F30FD00B167E4 /* WebViewViewController.swift in Sources */,
 				3177777F2A2F837300B167E4 /* OAuth2Service.swift in Sources */,
 				3124FD432A6D5CAC00319598 /* AuthHelper.swift in Sources */,
