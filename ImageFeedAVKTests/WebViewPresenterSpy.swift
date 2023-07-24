@@ -5,7 +5,7 @@
 //  Created by Andy Kruch on 23.07.23.
 //
 
-import ImageFeedAVK
+@testable import ImageFeedAVK
 import Foundation
 
 final class WebViewPresenterSpy: WebViewPresenterProtocol {
@@ -25,4 +25,3 @@ final class WebViewPresenterSpy: WebViewPresenterProtocol {
         return nil
     }
 }
-

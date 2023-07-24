@@ -4,15 +4,16 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--ImageList-->
+        <!--Item-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="ImagesListViewController" id="BYZ-38-t0r" userLabel="ImageList" customClass="ImagesListViewController" customModule="ImageFeedAVK" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ImagesListViewController" id="BYZ-38-t0r" customClass="ImagesListViewController" customModule="ImageFeedAVK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -115,12 +116,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-791" y="-485"/>
+            <point key="canvasLocation" x="-1697" y="-485"/>
         </scene>
-        <!--Single Image View Controller-->
+        <!--SingleImageViewController-->
         <scene sceneID="KNY-bj-kGg">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="h8H-Lb-lv1" customClass="SingleImageViewController" customModule="ImageFeedAVK" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="h8H-Lb-lv1" userLabel="SingleImageViewController" customClass="SingleImageViewController" customModule="ImageFeedAVK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BfD-Hv-T2k">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -187,7 +188,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s2N-mP-OmK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="156.52173913043478" y="-485.49107142857139"/>
+            <point key="canvasLocation" x="-817" y="-485"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Ero-xZ-pbr">
@@ -206,7 +207,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MKg-qK-k7G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3236" y="-544"/>
+            <point key="canvasLocation" x="-2620" y="-485"/>
         </scene>
         <!--AuthViewController-->
         <scene sceneID="tL6-IE-S31">
@@ -246,6 +247,9 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="RLK-lB-eI6"/>
                         <color key="backgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <bool key="isElement" value="YES"/>
+                        </accessibility>
                         <constraints>
                             <constraint firstItem="E58-dD-klv" firstAttribute="leading" secondItem="RLK-lB-eI6" secondAttribute="leading" constant="16" id="69h-0N-Jig"/>
                             <constraint firstAttribute="bottom" secondItem="E58-dD-klv" secondAttribute="bottom" constant="124" id="Tf4-HX-bbV"/>
@@ -291,11 +295,12 @@
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Xrt-5A-H5T">
                                 <rect key="frame" x="0.0" y="40" width="414" height="4"/>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="progressTintColor" name="YP Black"/>
                             </progressView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="jYQ-di-LPG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <accessibility key="accessibilityConfiguration" identifier="UnsplashWebView">
+                        <accessibility key="accessibilityConfiguration" identifier="UnsplashWeb">
                             <bool key="isElement" value="YES"/>
                         </accessibility>
                         <constraints>
@@ -345,6 +350,9 @@
         <image name="nav_back_button_black" width="9" height="16"/>
         <image name="share_button" width="50" height="50"/>
         <image name="tab_editorial_active" width="20" height="22"/>
+        <namedColor name="YP Black">
+            <color red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

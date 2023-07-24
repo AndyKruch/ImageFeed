@@ -5,7 +5,6 @@
 //  Created by Andy Kruch on 13.06.23.
 //
 
-import Foundation
 import UIKit
 
 final class TabBarController: UITabBarController {
@@ -13,16 +12,15 @@ final class TabBarController: UITabBarController {
         super.awakeFromNib()
         let storyboard = UIStoryboard(name: "Main", bundle: .main)
         
-        let imageListViewController = storyboard.instantiateViewController(withIdentifier: "ImagesListViewController")
-        imageListViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("", comment: ""),
-                                                          image: UIImage(named: "tab_editorial_active"),
-                                                          selectedImage: nil)
+        let imagesListViewController = storyboard.instantiateViewController(withIdentifier: "ImagesListViewController")
         
         let profileViewController = ProfileViewController()
-        profileViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("", comment: ""),
-                                                        image: UIImage(named: "tab_profile_active"),
-                                                        selectedImage: nil)
-        
-        self.viewControllers = [imageListViewController, profileViewController]
+        profileViewController.tabBarItem = UITabBarItem(
+            title: nil,
+            image: UIImage(named: "tab_profile_active"),
+            selectedImage: nil
+        )
+        self.viewControllers = [imagesListViewController, profileViewController]
     }
 }
+
