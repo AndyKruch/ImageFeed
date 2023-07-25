@@ -78,7 +78,7 @@ final class ProfilePresenter: ProfilePresenterProtocol {
     // MARK: - Exit
     func logout() {
         storageToken.clearToken()
-        WebViewViewController.clean()
+        WebViewPresenter.clean()
         cleanServicesData()
         let tabBarController = UIStoryboard(name: "Main", bundle: .main)
                     .instantiateViewController(withIdentifier: "TabBarViewController")

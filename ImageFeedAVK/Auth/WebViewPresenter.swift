@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import WebKit
 
 protocol WebViewPresenterProtocol {
     var view: WebViewViewControllerProtocol? { get set }
@@ -21,11 +22,13 @@ final class WebViewPresenter: WebViewPresenterProtocol {
     init(authHelper: AuthHelperProtocol) {
         self.authHelper = authHelper
     }
+    
     func viewDidLoad() {
         let request = authHelper.authRequest()
         view?.load(request: request)
         didUpdateProgressValue(0)
     }
+    
     func didUpdateProgressValue(_ newValue: Double) {
         let newProgressValue = Float(newValue)
         view?.setProgressValue(newProgressValue)
@@ -40,6 +43,15 @@ final class WebViewPresenter: WebViewPresenterProtocol {
     
     func fetchCode(from url: URL) -> String? {
         authHelper.code(from: url)
+    }
+    
+    static func clean() {
+        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+            records.forEach { record in
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+            }
+        }
     }
 }
 
