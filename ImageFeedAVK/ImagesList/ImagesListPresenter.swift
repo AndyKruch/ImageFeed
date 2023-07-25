@@ -21,7 +21,7 @@ protocol ImagesListPresenterProtocol {
 final class ImagesListPresenter: ImagesListPresenterProtocol {
     weak var view: ImagesListViewControllerProtocol?
     private var imagesListServiceObserver: NSObjectProtocol?
-    internal let imagesListService = ImagesListService.shared
+    let imagesListService = ImagesListService.shared
     
     func viewDidLoad() {
         imagesListServiceObserver = NotificationCenter.default.addObserver(
@@ -59,7 +59,7 @@ final class ImagesListPresenter: ImagesListPresenterProtocol {
     
 //MARK: - Alert
 
-    internal func makeAlert(with error: Error) -> UIAlertController {
+    func makeAlert(with error: Error) -> UIAlertController {
         let alert = UIAlertController(
             title: "Что-то пошло не так(",
             message: "Не удалось поставить лайк",

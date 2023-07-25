@@ -21,11 +21,9 @@ final class ImageListViewControllerSpy: ImagesListViewControllerProtocol {
     }
 
     func setLike() {
-        presenter?.setLike(photoId: "some", isLike: true)
-        {[weak self ] result in
-            guard let self = self else { return }
+        presenter?.setLike(photoId: "some", isLike: true) { result in
             switch result {
-            case .success(_):
+            case .success:
                 break
             case .failure(let error):
                 print(error.localizedDescription)

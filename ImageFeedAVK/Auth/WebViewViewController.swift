@@ -32,12 +32,12 @@ final class WebViewViewController: UIViewController & WebViewViewControllerProto
         webView.navigationDelegate = self
         presenter?.viewDidLoad()
         estimatedProgressObservation = webView.observe(
-                     \.estimatedProgress,
-                      options: [],
-                      changeHandler: { [weak self] _, _ in
-                          guard let self = self else { return }
-                          self.presenter?.didUpdateProgressValue(webView.estimatedProgress)
-                      })
+            \.estimatedProgress,
+             options: [],
+             changeHandler: { [weak self] _, _ in
+                 guard let self = self else { return }
+                 self.presenter?.didUpdateProgressValue(webView.estimatedProgress)
+             })
     }
     
     func setProgressValue(_ newValue: Float) {
@@ -52,7 +52,7 @@ final class WebViewViewController: UIViewController & WebViewViewControllerProto
         webView.load(request)
     }
     
-
+    
     
     @IBAction private func didTapBackButton(_ sender: Any) {
         delegate?.webViewViewControllerDidCancel(self)
