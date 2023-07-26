@@ -3,10 +3,10 @@ import XCTest
 final class ImageFeed_UITests: XCTestCase {
     
 //    Перед началом теста необходимо заполнить данные:
-    private let login = ""
-    private let password = ""
-    private let userName = ""
-    private let nickname = ""
+    private let login = "avk.16@yandex.ru"
+    private let password = "vubje4-cygtYg-xijzet"
+    private let userName = "Andy Kruch"
+    private let nickname = "@andy_kruch"
     
     private let app = XCUIApplication()
     
@@ -19,16 +19,17 @@ final class ImageFeed_UITests: XCTestCase {
         app.buttons["Authenticate"].tap()
         
         let webView = app.webViews["UnsplashWebView"]
-        XCTAssertTrue(webView.waitForExistence(timeout: 10))
+        XCTAssertTrue(webView.waitForExistence(timeout: 5))
         
         let loginTextField = webView.descendants(matching: .textField).element
-        XCTAssertTrue(webView.waitForExistence(timeout: 4))
+        XCTAssertTrue(webView.waitForExistence(timeout: 5))
         loginTextField.tap()
         loginTextField.typeText(login)
         webView.swipeUp()
-        
+        sleep(2)
         let passwordTextField = webView.descendants(matching: .secureTextField).element
-        XCTAssertTrue(webView.waitForExistence(timeout: 4))
+        XCTAssertTrue(webView.waitForExistence(timeout: 10))
+        sleep(2)
         passwordTextField.tap()
         passwordTextField.typeText(password)
         webView.swipeUp()
@@ -57,7 +58,7 @@ final class ImageFeed_UITests: XCTestCase {
         cellToLike.buttons["likeButton"].tap()
         sleep(2)
         cellToLike.tap()
-        sleep(2)
+        sleep(25)
         let image = app.scrollViews.images.element(boundBy: 0)
         image.pinch(withScale: 3, velocity: 1)
         image.pinch(withScale: 0.5, velocity: -1)
