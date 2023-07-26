@@ -19,17 +19,16 @@ final class ImageFeed_UITests: XCTestCase {
         app.buttons["Authenticate"].tap()
         
         let webView = app.webViews["UnsplashWebView"]
-        XCTAssertTrue(webView.waitForExistence(timeout: 5))
+        XCTAssertTrue(webView.waitForExistence(timeout: 10))
         
         let loginTextField = webView.descendants(matching: .textField).element
         XCTAssertTrue(webView.waitForExistence(timeout: 5))
         loginTextField.tap()
         loginTextField.typeText(login)
         webView.swipeUp()
-        sleep(2)
         let passwordTextField = webView.descendants(matching: .secureTextField).element
-        XCTAssertTrue(webView.waitForExistence(timeout: 10))
-        sleep(2)
+        XCTAssertTrue(webView.waitForExistence(timeout: 5))
+        sleep(5)
         passwordTextField.tap()
         passwordTextField.typeText(password)
         webView.swipeUp()
@@ -58,7 +57,7 @@ final class ImageFeed_UITests: XCTestCase {
         cellToLike.buttons["likeButton"].tap()
         sleep(2)
         cellToLike.tap()
-        sleep(25)
+        sleep(10)
         let image = app.scrollViews.images.element(boundBy: 0)
         image.pinch(withScale: 3, velocity: 1)
         image.pinch(withScale: 0.5, velocity: -1)

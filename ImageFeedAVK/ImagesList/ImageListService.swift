@@ -33,7 +33,7 @@ struct PhotoResult: Decodable {
 
      enum CodingKeys: String, CodingKey {
          case thumbImageURL = "thumb"
-         case largeImageURL = "full"
+         case largeImageURL = "regular"
      }
  }
 
