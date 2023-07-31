@@ -7,45 +7,35 @@
 
 import Foundation
 
+private enum NetworkError: Error {
+    case codeError
+}
 
-enum NetworkError: Error {
- case httpStatusCode(Int)
- case urlRequestError(Error)
- case urlSessionError
- }
-
- extension URLSession {
-     func objectTask<Model: Decodable>(
-         for request: URLRequest,
-         completion: @escaping (Result<Model, Error>) -> Void
-     ) -> URLSessionTask {
-         let fulfillCompletion: (Result<Model, Error>) -> Void = { result in
-             DispatchQueue.main.async {
-                 completion(result)
-             }
-         }
-         let task = dataTask(with: request, completionHandler: { data, response, error in
-             if let data = data,
-                let response = response,
-                let statusCode = (response as? HTTPURLResponse)?.statusCode {
-                 if 200 ..< 300 ~= statusCode {
-                     do {
-                         let decoder = JSONDecoder()
-                         let result = try decoder.decode(Model.self, from: data)
-                         fulfillCompletion(.success(result))
-                     } catch {
-                         fulfillCompletion(.failure(NetworkError.urlRequestError(error)))
-                     }
-                 } else {
-                     fulfillCompletion(.failure(NetworkError.httpStatusCode(statusCode)))
-                 }
-             } else if let error = error {
-                 fulfillCompletion(.failure(NetworkError.urlRequestError(error)))
-             } else {
-                 fulfillCompletion(.failure(NetworkError.urlSessionError))
-             }
-         })
-         task.resume()
-         return task
-     }
- }
+extension URLSession {
+    func objectTask<T: Decodable>(for request: URLRequest, completion: @escaping (Result<T, Error>) -> Void) -> URLSessionTask {
+        let task = dataTask(with: request) { data, response, error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                if let response = response as? HTTPURLResponse,
+                   !(200...299).contains(response.statusCode) {
+                    completion(.failure(NetworkError.codeError))
+                    return
+                }
+                if let data = data {
+                    do {
+                        let decodedData = try JSONDecoder().decode(T.self, from: data)
+                        completion(.success(decodedData))
+                    } catch let error {
+                        completion(.failure(error))
+                    }
+                } else {
+                    return
+                }
+            }
+        }
+        return task
+    }
+}
